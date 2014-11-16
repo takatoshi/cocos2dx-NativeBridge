@@ -13,7 +13,7 @@ The static library used in cocos2d-x that integrates third party SDK.
 * create libs directory under your project and clone this repository.
 
 ```sh
-cd /path/to/my-project
+cd /path/to/your-project
 mkdir libs && cd libs
 git clone git@github.com:takatoshi/cocos2dx-NativeBridge.git
 ```
@@ -26,10 +26,10 @@ git clone git@github.com:takatoshi/cocos2dx-NativeBridge.git
 * Update project.properties file.
 
 ```sh
-cd /path/to/my-project/libs/cocos2dx-NativeBridge/android/java
+cd /path/to/your-project/libs/cocos2dx-NativeBridge/android/java
 android update project -p . -t [android API level]
 android update project -p . -l ../../../../cocos2d/cocos/platform/android/java
-cd /path/to/my-project/proj.android
+cd /path/to/your-project/proj.android
 android update project -p . -t [android API level]
 android update project -p . -l ../libs/cocos2dx-WebView/android/java
 ```
@@ -37,7 +37,7 @@ android update project -p . -l ../libs/cocos2dx-WebView/android/java
 * Update Android.mk file.
 
 ```sh
-open /path/to/my-project/proj.android/jni/Android.mk
+open /path/to/your-project/proj.android/jni/Android.mk
 ```
 
 ```diff
