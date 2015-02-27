@@ -14,7 +14,6 @@ static GADInterstitial *interstitial;
 #define ADMOB_INTERSTITIAL_ID_IOS ""
 #define GA_TRACKING_ID ""
 
-
 void NativeBridge::openUrl(const char* url) {
     NSURL* nsUrl = [NSURL URLWithString:[NSString stringWithUTF8String:url]];
     [[UIApplication sharedApplication] openURL:nsUrl];
@@ -204,4 +203,26 @@ void NativeBridge::sendScreen(const char* screenName)
 
     [tracker send:[[GAIDictionaryBuilder createScreenView] build]];
 #endif
+}
+
+void NativeBridge::postWithImage(const char *message, const char *filePath) {
+    NSString *messageStr = [NSString stringWithUTF8String:message];
+    NSString *filePathStr = [NSString stringWithUTF8String:filePath];
+    
+    UIImage *postImage = [UIImage imageWithContentsOfFile:filePathStr];
+    
+    NSArray *activityItems;
+    if ([filePathStr length] == 0) {
+        activityItems = @[messageStr];
+    } else {
+        activityItems = @[messageStr, postImage];
+    }
+    
+    UIActivityViewController *activityController = [[UIActivityViewController alloc]
+                                                    initWithActivityItems:activityItems
+                                                    applicationActivities:nil];
+    
+    UIViewController* rootController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    [rootController presentViewController:activityController
+                                               animated:YES completion:nil];
 }

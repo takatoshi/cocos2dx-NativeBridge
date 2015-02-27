@@ -13,6 +13,7 @@ extern "C"
     void showInterstitialAdJNI();
     void gaSetupJNI();
     void sendScreenJNI(const char* screenName);
+    void postWithImageJNI(const char* message, const char* filePath);
 }
 
 #endif //__NativeBridgeJNI_H

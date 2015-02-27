@@ -41,3 +41,7 @@ void NativeBridge::sendScreen(const char* screenName) {
     sendScreenJNI(screenName);
 #endif
 }
+
+void NativeBridge::postWithImage(const char* message, const char* filePath) {
+    postWithImageJNI(message, filePath);
+}

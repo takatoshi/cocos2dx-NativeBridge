@@ -95,4 +95,17 @@ extern "C" {
             t.env->DeleteLocalRef(t.classID);
         }
     }
+
+    void postWithImageJNI(const char* message, const char* filePath) {
+        JniMethodInfo t;
+        if (JniHelper::getStaticMethodInfo(t, kShareHelper, "postWithImage", "(Ljava/lang/String;Ljava/lang/String;)V")) {
+            jstring jmessage = t.env->NewStringUTF(message);
+            jstring jfilepath = t.env->NewStringUTF(filePath);
+            t.env->CallStaticVoidMethod(t.classID, t.methodID, jmessage, jfilepath);
+
+            t.env->DeleteLocalRef(jmessage);
+            t.env->DeleteLocalRef(jfilepath);
+            t.env->DeleteLocalRef(t.classID);
+        }
+    }
 }

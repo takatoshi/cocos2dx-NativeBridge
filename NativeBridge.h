@@ -18,6 +18,8 @@ public:
 
     static void gaSetup();
     static void sendScreen(const char* screenName);
+    
+    static void postWithImage(const char* message, const char* filePath);
 };
 
 #endif //__NativeBridge_H_

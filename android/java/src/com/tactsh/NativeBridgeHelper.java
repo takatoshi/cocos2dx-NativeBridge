@@ -1,8 +1,14 @@
 package com.tactsh;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
 import org.cocos2dx.lib.Cocos2dxActivity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Environment;
 import android.os.Handler;
 import android.app.Activity;
 import android.view.WindowManager;
@@ -137,5 +143,67 @@ public class NativeBridgeHelper {
       // Send a screen view.
       mTracker.send(new HitBuilders.AppViewBuilder().build());
 
+  }
+
+  public static void postWithImage(String message, String filePath) {
+      final String path = filePath;
+      final String tweetMessage = message;
+
+      Activity mContext = (Activity) Cocos2dxActivity.getContext();
+      mContext.runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+              Intent intent = new Intent(Intent.ACTION_SEND);
+              intent.putExtra(Intent.EXTRA_SUBJECT, "");
+              intent.putExtra(Intent.EXTRA_TEXT, tweetMessage);
+              if (path.length() > 0) {
+                  byte[] data;
+                  try {
+                      data = readFileToByte(path);
+                  } catch (Exception e) {
+                      return;
+                  }
+
+                  File savePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+                  File saveFile = new File(savePath, "screenshot.jpeg");
+
+                  if (!savePath.exists()) {
+                      savePath.mkdir();
+                  }
+
+                  FileOutputStream fos = null;
+
+                  try {
+                      fos = new FileOutputStream(saveFile);
+                      fos.write(data);
+                      fos.close();
+                  } catch (Exception e) {
+                      return;
+                  }
+
+                  Uri uri = Uri.fromFile(saveFile);
+                  intent.putExtra(Intent.EXTRA_STREAM, uri);
+                  intent.setType("image/jpeg");
+              } else {
+                  intent.setType("text/plain");
+              }
+              Cocos2dxActivity.getContext().startActivity(Intent.createChooser(intent, "Share"));
+          }
+      });
+  }
+  
+  private static byte[] readFileToByte(String filePath) throws Exception
+  {
+              byte[] b = new byte[1];
+              FileInputStream fis = new FileInputStream(filePath);
+              ByteArrayOutputStream baos = new ByteArrayOutputStream();
+              while (fis.read(b) > 0) {
+                      baos.write(b);
+              }
+              baos.close();
+              fis.close();
+              b = baos.toByteArray();
+      
+              return b;
   }
 }
