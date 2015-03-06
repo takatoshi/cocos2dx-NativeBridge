@@ -137,7 +137,7 @@ void NativeBridge::postAchievement(const char* key, int percentComplete) {
 }
 
 void NativeBridge::showAd() {
-    GADAdSize size = kGADAdSizeSmartBannerPortrait;
+    GADAdSize size = kGADAdSizeBanner;
     UIViewController* rootController = [UIApplication sharedApplication].keyWindow.rootViewController;
 
     bannerView = [[GADBannerView alloc] initWithAdSize:size];
@@ -208,20 +208,20 @@ void NativeBridge::sendScreen(const char* screenName)
 void NativeBridge::postWithImage(const char *message, const char *filePath) {
     NSString *messageStr = [NSString stringWithUTF8String:message];
     NSString *filePathStr = [NSString stringWithUTF8String:filePath];
-    
+
     UIImage *postImage = [UIImage imageWithContentsOfFile:filePathStr];
-    
+
     NSArray *activityItems;
     if ([filePathStr length] == 0) {
         activityItems = @[messageStr];
     } else {
         activityItems = @[messageStr, postImage];
     }
-    
+
     UIActivityViewController *activityController = [[UIActivityViewController alloc]
                                                     initWithActivityItems:activityItems
                                                     applicationActivities:nil];
-    
+
     UIViewController* rootController = [UIApplication sharedApplication].keyWindow.rootViewController;
     [rootController presentViewController:activityController
                                                animated:YES completion:nil];

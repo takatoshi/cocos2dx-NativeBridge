@@ -191,7 +191,7 @@ public class NativeBridgeHelper {
           }
       });
   }
-  
+
   private static byte[] readFileToByte(String filePath) throws Exception
   {
               byte[] b = new byte[1];
@@ -203,7 +203,7 @@ public class NativeBridgeHelper {
               baos.close();
               fis.close();
               b = baos.toByteArray();
-      
+
               return b;
   }
 }

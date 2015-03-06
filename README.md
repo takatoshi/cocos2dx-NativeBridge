@@ -20,27 +20,31 @@ git clone git@github.com:takatoshi/cocos2dx-NativeBridge.git
 
 ## iOS
 1. Add `cocos2dx-NativeBridge/ios` to your project.
-2. Add `$(SRCROOT)/../plugins` to the Header Search Paths in your project.
-3. Add `-Objc`to the Other Linker Flags in your project.
-4. Add following frameworks to your project.
+2. Add `$(SRCROOT)/../plugins` to the Header Search Paths.
+3. Add `-Objc` to the Other Linker Flags.
+4. Add following frameworks.
    * AdSupport
    * AudioToolbox
    * AVFoundation
+   * CoreData
    * CoreGraphics
+   * CoreLocation
    * CoreTelephony
    * EventKit
    * EventKitUI
-   * MessageUI
-   * StoreKit
-   * SystemConfiguration
+   * GameKit
+   * GameController
    * iAd
    * ImageIO
-   * GameKit
    * MediaPlayer
-   * GameController
-   * CoreData
+   * MessageUI
+   * Security
+   * Social
+   * StoreKit
+   * SystemConfiguration
    * libsqlite3.0.dylib
    * libz.dylib
+Mark AdSupport.framework, Social.framework, and StoreKit.framework as optional if your code compiles below iOS version 6.0.
 
 ## Android
 * Update project.properties file.
